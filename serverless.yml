@@ -1,6 +1,7 @@
 service: apollo-lambda
 
 useDotenv: true
+variablesResolutionMode: 20210219
 
 provider:
   name: aws
@@ -8,20 +9,25 @@ provider:
   lambdaHashingVersion: 20201221
   region: eu-central-1
   environment:
-    CANDIDATE_TABLE: Users
+    USERS_TABLE: Users
   iam:
     role:
       statements:
         - Effect: Allow
           Action:
             - dynamodb:Query
+            - dynamodb:BatchGetItem
             - dynamodb:Scan
             - dynamodb:GetItem
             - dynamodb:PutItem
+            - dynamodb:DeleteItem
+            - dynamodb:UpdateItem
+            - dynamodb:BatchWriteItem
           Resource: "*"
 functions:
   graphql:
     handler: graphql.graphqlHandler
+    memorySize: 128
     events:
       - http:
           path: graphql
@@ -50,4 +56,4 @@ resources:
           WriteCapacityUnits: 1
         StreamSpecification:
           StreamViewType: "NEW_AND_OLD_IMAGES"
-        TableName: ${self:provider.environment.CANDIDATE_TABLE}
+        TableName: ${self:provider.environment.USERS_TABLE}

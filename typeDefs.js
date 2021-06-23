@@ -7,7 +7,6 @@ module.exports = gql`
     }
     
     input inputUser {
-        id: ID!,
         name: String!
     }
     
@@ -18,8 +17,8 @@ module.exports = gql`
     }
     
     type Mutation {
-        create(input: inputUser!): User
-        updateOne(id: ID!): String
-        deleteOne(id: ID!): String
+        create(input: inputUser!): String!
+        updateOne(id: ID!, input: inputUser): String!
+        deleteOne(id: ID!): String!
     }
 `;
