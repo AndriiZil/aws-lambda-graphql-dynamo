@@ -1,0 +1,11 @@
+# ENV
+.env
+
+# WebStorm
+.idea
+
+# Serverless configs
+.serverless
+
+# Modules
+node_modules

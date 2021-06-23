@@ -1,0 +1,1 @@
+# aws-lambda-graphql-dynamo
