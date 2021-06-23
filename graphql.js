@@ -6,7 +6,12 @@ const server = new ApolloServer({ typeDefs, resolvers });
 
 exports.graphqlHandler = (event, lambdaContext, callback) => {
   if (event.httpMethod === 'GET') {
-    server.createHandler()(
+    server.createHandler({
+      cors: {
+        origin: '*',
+        credentials: true,
+      },
+    })(
       { ...event, path: event.requestContext.path || event.path },
       lambdaContext,
       callback,
